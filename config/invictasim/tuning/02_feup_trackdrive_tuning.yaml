@@ -1,6 +1,6 @@
 tuning:
   # Base car configuration file for simulator baseline
-  base_car_config: "config/car/02.yaml" 
+  base_car_config: "config/invictasim/car/02.yaml" 
   
   # Inline model string
   vehicle_model: "inline_02"

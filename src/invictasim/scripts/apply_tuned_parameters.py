@@ -60,12 +60,21 @@ def update_file_parameter(config_file: Path, target_key: str, new_value) -> bool
 def main():
     if len(sys.argv) < 3:
         print("Usage: python3 apply_tuned_parameters.py <best_parameters.yaml> <car_config_dir> [car_name]")
-        print("Example: python3 apply_tuned_parameters.py src/invictasim/tuning_csvs/best_parameters.yaml config/car 02")
+        print("Example: python3 apply_tuned_parameters.py src/invictasim/tuning_csvs/best_parameters.yaml config/invictasim/car 02")
         sys.exit(1)
 
     best_params_path = Path(sys.argv[1])
     car_config_dir = Path(sys.argv[2])
     car_name = sys.argv[3] if len(sys.argv) > 3 else "02"
+
+    # config/car holds the REAL car's parameters (used by SE/VE/control). Tuned simulator
+    # parameters must only go to the simulator's own copy in config/invictasim/car.
+    resolved_dir = car_config_dir.resolve()
+    if resolved_dir.parts[-2:] == ("config", "car"):
+        print(f"Error: refusing to write to {resolved_dir}.")
+        print("config/car holds the real car's parameters (used by SE/VE/control).")
+        print("Apply tuned simulator parameters to config/invictasim/car instead.")
+        sys.exit(1)
 
     if not best_params_path.exists():
         print(f"Error: {best_params_path} not found.")
