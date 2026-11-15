@@ -58,8 +58,22 @@ Invictasim reads configuration through `common_lib::config_load`:
     `publish_frequencies`
 - [config/global/global_config.yaml](../../config/global/global_config.yaml)
   - global discipline/system parameters used by the simulator context
-- [config/invictasim/vehicle_models/FSFEUP02.yaml](../../config/invictasim/vehicle_models/FSFEUP02.yaml)
-  - selected vehicle model parameters
+- [config/invictasim/vehicle_models/02.yaml](../../config/invictasim/vehicle_models/02.yaml)
+  (or `03.yaml`, selected by `vehicle_model` in `global.yaml`)
+  - selected vehicle model: which sub-models to use and which parameter files to load
+  - `car_parameters`: name of the car parameter file (e.g. `"02"`)
+  - `car_parameters_dir`: directory, relative to `config/`, holding that file and the
+    `*_model/` sub-parameter directories. Set to `"invictasim/car"`; defaults to `"car"` if omitted
+- [config/invictasim/car/](../../config/invictasim/car/)
+  - the simulator's own car parameters: `02.yaml`, `03.yaml` and `aero_model/`, `tire_model/`,
+    `motor_model/`, etc.
+  - this is where simulator tuning goes (`scripts/apply_tuned_parameters.py` refuses to write
+    to `config/car`)
+
+> **Note:** [config/car/](../../config/car/) holds the **real car's** parameters, read by the
+> nodes that run on the car (`ekf_state_est`, `velocity_estimation`, `control`). The simulator
+> does not read it. Changes to `config/invictasim/car/` do not affect the real car, and changes
+> to `config/car/` do not affect the simulator.
 
 Code reference for config loading:
 
