@@ -2,6 +2,7 @@ vehicle_model:
   name: "fsfeup03"
 
   car_parameters: "03"
+  car_parameters_dir: "invictasim/car" # Simulator's own copy; the real car uses config/car
 
   aero_model: "default_aero"
   aero_model_params: "03_aero"
@@ -24,7 +25,7 @@ vehicle_model:
   brake_model: "default"
   brake_model_params: "03_brake"
 
-  load_transfer_model: "vd_model" # Options: "rigid_body_model", "vd_model"
+  load_transfer_model: "vd_model" # Options: "rigid_body", "vd_model"
   load_transfer_model_params: "03_load_transfer"
 
   steering_motor_model: "first_order"

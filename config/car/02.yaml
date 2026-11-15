@@ -1,3 +1,4 @@
+# Parâmetros do carro real (SE/VE/control). O simulador usa config/invictasim/car/
 car:
   wheel_base: 1.53
   track_width: 1.2
